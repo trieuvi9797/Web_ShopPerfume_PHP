@@ -8,12 +8,12 @@
                         <li><a href="catlist.php">Danh sách danh mục</a> </li>
                     </ul>
                 </li>
-                <li><a class="menuitem">Thương hiệu</a>
+                <!-- <li><a class="menuitem">Thương hiệu</a>
                     <ul class="submenu">
                         <li><a href="brandadd.php">Thêm thương hiệu</a> </li>
                         <li><a href="brandlist.php">Danh sách thương hiệu</a> </li>
                     </ul>
-                </li>
+                </li> -->
                 <li><a class="menuitem">Sản phẩm</a>
                     <ul class="submenu">
                         <li><a href="productadd.php">Thêm Sản phẩm</a> </li>

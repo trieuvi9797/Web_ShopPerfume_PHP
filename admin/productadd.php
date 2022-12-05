@@ -1,34 +1,54 @@
 ﻿<?php include 'inc/header.php';?>
 <?php include 'inc/sidebar.php';?>
+<?php include_once '../classses/category.php' ?>
+<?php include_once '../classses/product.php' ?>
+<?php
+ 	$pb = new product();
+	if($_SERVER['REQUEST_METHOD'] =='POST' && isset($_POST['submit'])){
+
+        $inserProduct = $pb->insert_product($_POST, $_FILES);
+	}
+?>
+
 <div class="grid_10">
     <div class="box round first grid">
-        <h2>Add New Product</h2>
-        <div class="block">               
-         <form action="" method="post" enctype="multipart/form-data">
+        <h2>Thêm sản phẩm</h2>
+        <div class="block">  
+        <?php
+            if(isset($inserProduct)){
+                echo $inserProduct;
+            }  
+        ?>             
+         <form action="productadd.php" method="post" enctype="multipart/form-data">
             <table class="form">
                
                 <tr>
                     <td>
-                        <label>Name</label>
+                        <label>Tên sản phẩm</label>
                     </td>
                     <td>
-                        <input type="text" placeholder="Enter Product Name..." class="medium" />
+                        <input type="text" name="productName" placeholder="Nhập tên sản phẩm" class="medium" />
                     </td>
                 </tr>
 				<tr>
                     <td>
-                        <label>Category</label>
+                        <label>Danh mục sản phẩm</label>
                     </td>
                     <td>
                         <select id="select" name="select">
-                            <option>Select Category</option>
-                            <option value="1">Category One</option>
-                            <option value="2">Category Two</option>
-                            <option value="3">Category Three</option>
+                            <option>--Chọn danh mục--</option>
+                            <?php  
+                                $cat = new category();
+                                $catlist = $cat->show_category();
+                                if($catlist){
+                                    while($result = $catlist->fetch_assoc()){ 
+                            ?>
+                            <option value="<?php echo $result['catId']; ?>"><?php echo $result['catName']; ?></option>
+                                <?php }} ?>
                         </select>
                     </td>
                 </tr>
-				<tr>
+				<!-- <tr>
                     <td>
                         <label>Brand</label>
                     </td>
@@ -40,35 +60,43 @@
                             <option value="3">Brand Three</option>
                         </select>
                     </td>
-                </tr>
+                </tr> -->
 				
 				 <tr>
                     <td style="vertical-align: top; padding-top: 9px;">
-                        <label>Description</label>
+                        <label>Mô tả</label>
                     </td>
                     <td>
-                        <textarea class="tinymce"></textarea>
+                        <textarea class="tinymce" name="productDescription"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Số lượng</label>
+                    </td>
+                    <td>
+                        <input type="number" name="productAmount" placeholder="" class="medium" />
                     </td>
                 </tr>
 				<tr>
                     <td>
-                        <label>Price</label>
+                        <label>Giá</label>
                     </td>
                     <td>
-                        <input type="text" placeholder="Enter Price..." class="medium" />
+                        <input type="text" name="productPrice" placeholder="Nhập giá" class="medium" />
                     </td>
                 </tr>
             
                 <tr>
                     <td>
-                        <label>Upload Image</label>
+                        <label>Hình ảnh</label>
                     </td>
                     <td>
-                        <input type="file" />
+                        <input type="file" name="productImage"/>
                     </td>
                 </tr>
 				
-				<tr>
+				<!-- <tr>
                     <td>
                         <label>Product Type</label>
                     </td>
@@ -79,7 +107,7 @@
                             <option value="2">Non-Featured</option>
                         </select>
                     </td>
-                </tr>
+                </tr> -->
 
 				<tr>
                     <td></td>
